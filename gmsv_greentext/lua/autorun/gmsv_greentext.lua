@@ -9,10 +9,13 @@ do
 	if CLIENT then
 		function ParseChatText(Player, Text, IsTeamChat, IsDead)
 			local StartPos = string.find(Text, ">")
-			if not StartPos then return end
 
-			local BeforeArrow = string.sub(Text, 1, StartPos - 1)
-			local AfterArrow = string.sub(Text, StartPos)
+			local BeforeArrow = string.sub(Text, 1, StartPos and (StartPos - 1) or -1)
+			local AfterArrow
+
+			if StartPos then
+				AfterArrow = string.sub(Text, StartPos)
+			end
 
 			local TeamColor = team.GetColor(Player:Team())
 			local Message = util.Stack()
@@ -31,10 +34,12 @@ do
 			Message:Push(Player:GetName())
 			Message:Push(color_white)
 			Message:Push(": ")
-
 			Message:Push(BeforeArrow)
-			Message:Push(color_greentext)
-			Message:Push(AfterArrow)
+
+			if AfterArrow then
+				Message:Push(color_greentext)
+				Message:Push(AfterArrow)
+			end
 
 			chat.AddText(unpack(Message))
 
