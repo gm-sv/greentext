@@ -1,5 +1,6 @@
 require("gmsv")
 
+local color_console = Color(150, 210, 255, 255)
 local color_greentext = Color(170, 215, 50, 255)
 local color_red = Color(255, 0, 0, 255)
 local color_white = Color(255, 255, 255, 255)
@@ -17,7 +18,7 @@ do
 				AfterArrow = string.sub(Text, StartPos)
 			end
 
-			local TeamColor = team.GetColor(Player:Team())
+			local TeamColor = IsValid(Player) and team.GetColor(Player:Team()) or color_console
 			local Message = util.Stack()
 
 			if IsDead then
@@ -31,7 +32,7 @@ do
 			end
 
 			Message:Push(TeamColor)
-			Message:Push(Player:GetName())
+			Message:Push(IsValid(Player) and Player:GetName() or "Console")
 			Message:Push(color_white)
 			Message:Push(": ")
 			Message:Push(BeforeArrow)
