@@ -5,7 +5,7 @@ local color_greentext = Color(170, 215, 50, 255)
 local color_red = Color(255, 0, 0, 255)
 local color_white = Color(255, 255, 255, 255)
 
-gmsv.StartModule("greentext")
+gmsv.StartModule("GreenText")
 do
 	if CLIENT then
 		function ParseChatText(Player, Text, IsTeamChat, IsDead)
